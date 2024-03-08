@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing</title>
+    <header>
+        <h1>Clothing</h1>
+       
+    </header>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .clothing-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .product {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .product img {
+            max-width: 17%;
+        }
+        .product h2 {
+            margin-top: 0;
+        }
+        #cartItems {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        #viewCartBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #viewCartBtn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product">
+            <img src="tshirt.jpg" alt="tshirt">
+            <h2>T-Shirt</h2>
+            <p>black</p>
+            <p>Price: $29.99</p>
+            <button onclick="addToCart('T-Shirt', 29.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="jean.jpg" alt="jean">
+            <h2>jean</h2>
+            <p>shaded blue</p>
+            <p>Price: $199.99</p>
+            <button onclick="addToCart('Jean', 199.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="flannel.jpg" alt="flannel">
+            <h2>flannel</h2>
+            <p>brown</p>
+            <p>Price: $29.99</p>
+            <button onclick="addToCart('Flannel', 29.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="formal.jpg" alt="formal">
+            <h2>formal</h2>
+            <p>blue</p>
+            <p>Price: $499.99</p>
+            <button onclick="addToCart('Formal', 499.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="jacket.jpg" alt="jacket">
+            <h2>jacket</h2>
+            <p>brown</p>
+            <p>Price: $69.09</p>
+            <button onclick="addToCart('Jacket', 69.09)">Add to Cart</button>
+        </div>
+
+
+        <div id="cartItems"></div>
+    </div>
+
+    <header>
+        <h2><div class="clothing-header">Chettipedu Clothing Store</div>
+        <button id="viewCartBtn" onclick="location.href ='viewcart.html'">viewcart</button>
+        </h2>
+    </header>
+
+    <script>
+        var cart = [];
+
+        function addToCart(productName, price) {
+            cart.push({ name: productName, price: price });
+            alert(productName + " added to cart!");
+            updateCartView();
+        }
+
+        function updateCartView() {
+            var totalValue = 0;
+            var cartItemsHtml = "<h2>Cart Items:</h2><ul>";
+
+            cart.forEach(function (item) {
+                cartItemsHtml += "<li>" + item.name + " - $" + item.price.toFixed(2) + "</li>";
+                totalValue += item.price;
+            });
+
+            cartItemsHtml += "</ul><p>Total Value: $" + totalValue.toFixed(2) + "</p>";
+            document.getElementById("cartItems").innerHTML = cartItemsHtml;
+        }
+
+        function viewCart() {
+            updateCartView();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - chettipedu Shop</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+        }
+
+        section {
+            padding: 40px;
+            text-align: center;
+        }
+
+        form {
+            max-width: 600px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            box-sizing: border-box;
+        }
+
+        .creditCardSection, .upiSection {
+            display: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>chettipedu Shop - Checkout</h1>
+    </header>
+
+    <section>
+        <form>
+            <label for="fullName">Full Name:</label>
+            <input type="text" id="fullName" name="fullName" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+
+            <label for="city">City:</label>
+            <input type="text" id="city" name="city" required>
+
+            <label for="zipCode">Zip Code:</label>
+            <input type="text" id="zipCode" name="zipCode" required>
+
+            <label for="paymentMethod">Payment Method:</label>
+            <select id="paymentMethod" name="paymentMethod" onchange="togglePaymentSections()" required>
+                <option value="" disabled selected>Select Payment Method</option>
+                <option value="creditCard">Credit Card</option>
+                <option value="paypal">PayPal</option>
+                <option value="upi">UPI</option>
+                <!-- Add more payment options as needed -->
+            </select>
+
+            <!-- Credit Card Section -->
+            <div class="creditCardSection">
+                <label for="cardNumber">Credit Card Number:</label>
+                <input type="text" id="cardNumber" name="cardNumber" placeholder="Enter Credit Card Number" required>
+
+                <label for="expiryDate">Expiry Date:</label>
+                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YYYY" required>
+
+                <label for="cvv">CVV:</label>
+                <input type="text" id="cvv" name="cvv" placeholder="Enter CVV" required>
+            </div>
+
+            <!-- UPI Section -->
+            <div class="upiSection">
+                <label for="upiId">UPI ID:</label>
+                <input type="text" id="upiId" name="upiId" placeholder="Enter UPI ID" required>
+            </div>
+
+            <button type="submit">Place Order</button>
+        </form>
+    </section>
+
+    <script>
+        function togglePaymentSections() {
+            const paymentMethod = document.getElementById('paymentMethod').value;
+            const creditCardSection = document.querySelector('.creditCardSection');
+            const upiSection = document.querySelector('.upiSection');
+
+            // Hide all sections
+            creditCardSection.style.display = 'none';
+            upiSection.style.display = 'none';
+
+            // Show the selected section
+            if (paymentMethod === 'creditCard') {
+                creditCardSection.style.display = 'block';
+            } else if (paymentMethod === 'upi') {
+                upiSection.style.display = 'block';
+            }
+        }
+    
+        // Retrieve cart data from session storage
+        const storedCartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+    
+        // Function to display previous cart items on the Checkout page
+        function displayPreviousCart() {
+            const previousCartList = document.getElementById("previousCartItems");
+            const previousCartTotal = document.getElementById("previousCartTotal");
+    
+            // Clear existing items
+            previousCartList.innerHTML = "";
+    
+            // Populate previous cart items
+            storedCartItems.forEach(item => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+                previousCartList.appendChild(listItem);
+            });
+    
+            // Calculate total
+            const total = storedCartItems.reduce((acc, item) => acc + item.price, 0);
+            previousCartTotal.textContent = total.toFixed(2);
+        }
+    
+        // Display previous cart items when the Checkout page loads
+        displayPreviousCart();
+    </script>
+    
+
+</body>
+</html>

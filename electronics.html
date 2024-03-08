@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics</title>
+    <header>
+        <h1>Electronics</h1>
+       
+    </header>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .electronic-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+        .product {
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+            padding: 10px;
+        }
+        .product img {
+            max-width: 17%;
+        }
+        .product h2 {
+            margin-top: 0;
+        }
+        #cartItems {
+            border: 1px solid #ccc;
+            padding: 10px;
+        }
+        #viewCartBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #viewCartBtn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product">
+            <img src="headphone.jpg" alt="headphone">
+            <h2>headphones</h2>
+            <p>black</p>
+            <p>Price: $89.99</p>
+            <button onclick="addToCart('headphones', 89.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="tws.jpg" alt="tws">
+            <h2>tws</h2>
+            <p>lightning blue</p>
+            <p>Price: $99.99</p>
+            <button onclick="addToCart('tws', 99.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="smartwatch.jpg" alt="smartwatch">
+            <h2>smartwatch</h2>
+            <p>brown</p>
+            <p>Price: $129.99</p>
+            <button onclick="addToCart('smartwatch', 129.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="speaker.jpg" alt="speaker">
+            <h2>speaker</h2>
+            <p>black</p>
+            <p>Price: $49.99</p>
+            <button onclick="addToCart('speaker', 49.99)">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="powerbank.jpg" alt="powerbank">
+            <h2>powerbank</h2>
+            <p>10000Mah</p>
+            <p>Price: $69.09</p>
+            <button onclick="addToCart('powerbank', 69.09)">Add to Cart</button>
+        </div>
+
+
+        <div id="cartItems"></div>
+    </div>
+
+    <header>
+        <h2><div class="electronics">Chettipedu Electronics Store</div>
+        <button id="viewCartBtn" onclick="location.href ='viewcart.html'">viewcart</button>
+        </h2>
+    </header>
+
+    <script>
+        var cart = [];
+
+        function addToCart(productName, price) {
+            cart.push({ name: productName, price: price });
+            alert(productName + " added to cart!");
+            updateCartView();
+        }
+
+        function updateCartView() {
+            var totalValue = 0;
+            var cartItemsHtml = "<h2>Cart Items:</h2><ul>";
+
+            cart.forEach(function (item) {
+                cartItemsHtml += "<li>" + item.name + " - $" + item.price.toFixed(2) + "</li>";
+                totalValue += item.price;
+            });
+
+            cartItemsHtml += "</ul><p>Total Value: $" + totalValue.toFixed(2) + "</p>";
+            document.getElementById("cartItems").innerHTML = cartItemsHtml;
+        }
+
+        function viewCart() {
+            updateCartView();
+        }
+    </script>
+</body>
+</html>
